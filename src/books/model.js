@@ -15,7 +15,10 @@ const Book = connection.define("Book", {
     genre: {
         type: DataTypes.STRING
     },
-    authorId : {
+    AuthorId : {
+        type: DataTypes.INTEGER
+    },
+    GenreId : {
         type: DataTypes.INTEGER
     }
 });
