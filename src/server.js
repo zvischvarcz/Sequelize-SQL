@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 
 const Book = require("./books/model");
 const bookRouter = require("./books/routes");
@@ -14,7 +15,7 @@ const genreRouter = require("./genres/routes");
 const port = 5001;
 
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 
 const syncTables = () => {

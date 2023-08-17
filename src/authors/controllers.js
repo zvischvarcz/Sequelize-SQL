@@ -8,7 +8,7 @@ const addAuthor = async (req, res) => {
         const newAuthor = await Author.create({
             authorName: req.body.authorName
         });
-        res.status(201).json({ message: "success", book: newAuthor});
+        res.status(201).json({ message: "success", author: newAuthor});
     } catch(error) {
         res.status(501).json({ message: error.message, error: error});
         console.log(error);
