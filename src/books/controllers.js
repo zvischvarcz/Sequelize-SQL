@@ -44,21 +44,39 @@ const getAllBooks = async (req, res) => {
 
 const updateBook = async (req, res) => {
     try {
-        const updateBook = await Book.update({[req.body.key]: req.body.value}, {
+        const updatedBook = await Book.update({[req.body.key]: req.body.value}, {
             where: {
                  title: req.body.title
             }
-        })
-
-        // const updateBook = await Book.update({author: req.body.newAuthor, genre: req.body.newGenre, title: req.body.newTitle}, {
-        //     where: {
-        //          title: req.body.title
-        //     }
-        // })
-       
-        res.status(200).json({ message: "success", changed: updateBook });
+        });
+        console.log(req.body.key)
+        if(req.body.key === "genre"){
+            const genre = await Genre.findOne({
+                where: {
+                    genreName: req.body.value
+                }
+            });
+            await Book.update({GenreId: genre.id}, {
+                where: {
+                     title: req.body.title
+                }
+            })
+        } else if(req.body.key === "author"){
+            const author = await Author.findOne({
+                where: {
+                    authorName: req.body.value
+                }
+            });
+            await Book.update({AuthorId: author.id}, {
+                where: {
+                     title: req.body.title
+                }
+            })
+        }
+        
+        res.status(200).json({ message: "success", changed: updatedBook });
     } catch(error) {
-        res.status(501).json({ message: error.message, error: error});
+        res.status(500).json({ message: error.message, error: error});
         console.log(error);
     }
 };
