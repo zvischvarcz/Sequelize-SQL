@@ -48,7 +48,6 @@ const updateBook = async (req, res) => {
                  title: req.body.title
             }
         });
-        console.log(req.body.key)
         if(req.body.key === "genre"){
             const genre = await Genre.findOne({
                 where: {
